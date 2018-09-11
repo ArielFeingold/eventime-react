@@ -9,7 +9,7 @@ const AuthTabs = () => (
           <Link className="nav-link" to="/new-recipe">Add a New Recipe</Link>
       </NavItem>
       <NavItem>
-          <Link className="nav-link" to="/all-recipe" disabled>MY Recipes</Link>
+          <Link className="nav-link" to="/all-recipe" disabled>My Recipes</Link>
       </NavItem>
 
     </NavbarNav>
