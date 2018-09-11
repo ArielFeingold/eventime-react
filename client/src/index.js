@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import history from './history'
+
 
 import 'mdbreact/dist/css/mdb.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import authReducer from './store/reducers/authReducer';
+import recipeReducer from './store/reducers/recipeReducer';
 
 import './index.css';
 import App from './App';
@@ -19,7 +23,8 @@ import registerServiceWorker from './registerServiceWorker';
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  recipe: recipeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
@@ -28,9 +33,9 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter >
+        <Router history={history}>
             <App />
-        </BrowserRouter>
+        </Router>
     </Provider>
 );
 

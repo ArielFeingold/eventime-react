@@ -6,3 +6,7 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const SIGNUP_FAIL = 'SIGNUP_FAIL';
 export const LOGOUT = 'LOGOUT';
+
+export const ADD_RECIPE_START = 'ADD_RECIPE_START';
+export const ADD_RECIPE_SUCCESS = 'ADD_RECIPE_SUCCESS';
+export const ADD_RECIPE_FAIL = 'ADD_RECIPE_FAIL';

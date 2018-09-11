@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
 import { Container, Row, Col, Button } from 'mdbreact';
+import { Alert } from 'reactstrap';
 import Spinner from '../../components/UI/Spinner'
 
 class Login extends Component {
@@ -36,14 +37,14 @@ class Login extends Component {
       if ( this.props.errors ) {
           errorMessage = (
             <div>
-              <Button className="w-100 p-3" color="danger">User Not Found</Button>
+              <Alert color="danger">User not found, please enter a valid password-email combination</Alert>
             </div>
           );
       }
 
       let authRedirect = null;
       if ( this.props.isAuthenticated ) {
-          authRedirect = <Redirect to="/workouts" />
+          authRedirect = <Redirect to="/recipes" />
       }
 
       return(
@@ -58,9 +59,11 @@ class Login extends Component {
               {errorMessage}
               <label htmlFor="defaultFormLoginEmailEx" className="grey-text">Your email</label>
               <input type="email" name="email" value={this.state.email} id="defaultFormLoginEmailEx" onChange={this.handleChange} className="form-control" required/>
+              <div className="invalid-feedback">Email is Required</div>
               <br/>
               <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">Your password</label>
               <input type="password" id="defaultFormLoginPasswordEx" className="form-control" value={this.state.password} name="password" onChange={this.handleChange} required/>
+              <div className="invalid-feedback">Password is Required</div>
               <div className="text-center mt-4">
               <button className="btn btn-indigo" type="submit">Login</button>
               </div>

@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_09_11_130348) do
 
   create_table "recipes", force: :cascade do |t|
+    t.string "user_id"
     t.string "title"
     t.string "ingredients"
     t.string "category"

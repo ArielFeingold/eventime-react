@@ -4,3 +4,7 @@ export {
   logout,
   authCheckState,
 } from './authActions'
+
+export {
+addRecipe
+} from './recipeActions'
