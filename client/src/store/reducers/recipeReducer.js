@@ -28,7 +28,14 @@ const updateRecipeStart = ( state, action ) => {
 };
 
 const updateRecipeSuccess = (state, action) => {
-    return updateObject( state, { errors: null, loading: false } );
+    return updateObject( state, {
+      errors: null,
+      loading: false,
+      recipeId: "",
+      recipeTitle: "",
+      recipeIngredients: "",
+      recipeCategory: ""
+    } );
 };
 
 const updateRecipeFail = (state, action) => {

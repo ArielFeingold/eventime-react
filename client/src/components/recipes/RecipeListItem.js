@@ -4,7 +4,7 @@ import { ListGroupItem, Button } from 'mdbreact'
 const RecipeListItem = (props) => (
 <ListGroupItem>
   <div className="row pl-3 pt-2">
-     <div onClick={props.handleShowRecipe} style={{cursor: "pointer"}} className="col-8-auto mr-auto">
+     <div onClick={props.handleShowRecipe} style={{cursor: "pointer"}} className="col-10-auto mr-auto">
        <h5 className="font-weight-bold">{props.title}</h5>
      </div>
      <div className="col-auto">
