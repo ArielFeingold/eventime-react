@@ -23,11 +23,32 @@ const addRecipeSuccess = (state, action) => {
         recipeCategory: action.recipeCategory,
         errors: null,
         loading: false,
-        newWorkout: true
      } );
 };
 
 const addRecipeFail = (state, action) => {
+    return updateObject( state, {
+        errors: action.errors,
+        loading: false
+    });
+};
+
+const updateRecipeStart = ( state, action ) => {
+    return updateObject( state, { error: null, loading: true } );
+};
+
+const updateRecipeSuccess = (state, action) => {
+    return updateObject( state, {
+        recipeId: "",
+        recipeTitle: "",
+        recipeDescription: '',
+        recipeCategory: '',
+        errors: null,
+        loading: false,
+     } );
+};
+
+const updateRecipeFail = (state, action) => {
     return updateObject( state, {
         errors: action.errors,
         loading: false
@@ -73,6 +94,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_RECIPE_START: return addRecipeStart(state, action);
         case actionTypes.ADD_RECIPE_SUCCESS: return addRecipeSuccess(state, action);
         case actionTypes.ADD_RECIPE_FAIL: return addRecipeStart(state, action);
+
+        case actionTypes.UPDATE_RECIPE_START: return updateRecipeStart(state, action);
+        case actionTypes.UPDATE_RECIPE_SUCCESS: return updateRecipeSuccess(state, action);
+        case actionTypes.UPDATE_RECIPE_FAIL: return updateRecipeStart(state, action);
 
         case actionTypes.GET_RECIPES_START: return getRecipesFail(state, action);
         case actionTypes.GET_RECIPES_SUCCESS: return getRecipesSuccess(state, action);

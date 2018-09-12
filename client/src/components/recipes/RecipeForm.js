@@ -5,7 +5,7 @@ import { Button } from 'mdbreact'
 const RecipeForm = (props) => {
   let selectError = ""
   if(props.errors){
-    selectError = <p style={{color:"red", fontSize: "13px"}}>Category is required</p>
+    selectError = <span style={{color:"red", fontSize: "13px"}}>Category is required</span>
   }
   return (
     <Form className='needs-validation' onSubmit={props.onSubmit} noValidate>
@@ -19,7 +19,6 @@ const RecipeForm = (props) => {
       </FormGroup>
       <FormGroup>
         <select name="category" value="" onChange={props.onSelectChange} className="browser-default w-100" required>
-          <div className="invalid-feedback">Title is required</div>
           <option value="" disabled>{props.category || "Choose Category"} </option>
           <option value="Appetizer">Appetizer</option>
           <option value="Soup">Soup</option>
@@ -30,8 +29,8 @@ const RecipeForm = (props) => {
           <option value="Desserts">Desserts</option>
           <option value="Other" >Uncategorized</option>
         </select>
-        {selectError}
         </FormGroup>
+        {selectError}
         <Button block color="primary" type="submit" value="submit">Submit Recipe</Button>
         <Button block color="danger">Cancle</Button>
       </Form>

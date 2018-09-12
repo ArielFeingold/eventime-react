@@ -9,5 +9,6 @@ export {
 addRecipe,
 getRecipes,
 deleteRecipe,
-getRecipe
+getRecipe,
+updateRecipe
 } from './recipeActions'

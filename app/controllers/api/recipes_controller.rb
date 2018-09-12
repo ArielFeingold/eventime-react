@@ -28,6 +28,15 @@ class API::RecipesController < ApplicationController
     end
   end
 
+  def update
+    recipe = Recipe.find_by(id: params[:id])
+    if recipe.update(recipe_params)
+      render json: {status: 200, recipe: recipe}
+    else
+      render json: {status: 400, errors: recipe.errors.messages}
+    end
+  end
+
   def destroy
     Recipe.find_by(id: params[:id]).destroy
   end

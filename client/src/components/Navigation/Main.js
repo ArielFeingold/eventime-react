@@ -17,6 +17,7 @@ const Main = () => (
       <Route path="/new-recipe" exact component={RecipeContainer} />
       <Route path="/recipes" exact component={Recipes} />
       <Route path='/' exact component={Login}/>
+      <Route path='/update' exact component={RecipeContainer}/>
       <Redirect to="/" />
     </Switch>
   </main>

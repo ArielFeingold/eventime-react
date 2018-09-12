@@ -19,6 +19,7 @@ import { Row, Col, Modal } from 'mdbreact';
 import RecipeListItem from '../../components/recipes/RecipeListItem';
 import RecipeShow from '../../components/recipes/RecipeShow';
 import Spinner from '../../components/UI/Spinner'
+import history from '../../history';
 
 
 class RecipesContainer extends Component {
@@ -55,8 +56,14 @@ setFilter = (category) => {
   }
 
 handleShowRecipe = (recipeId) => {
-  this.props.getRecipt(recipeId)
+  this.props.getRecipe(recipeId)
   this.toggle()
+}
+
+handleUpdateRecipe = (recipeId) => {
+  this.props.getRecipe(recipeId)
+  history.push('./update')
+
 }
 
   render() {
@@ -97,10 +104,12 @@ handleShowRecipe = (recipeId) => {
         <Container>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <RecipeShow
+              toggle={() => this.toggle()}
               key={this.props.recipeId}
               title={this.props.recipeTitle}
               ingrediants={this.props.recipeIngredients}
-              category={this.props.recipeId}
+              category={this.props.recipeCategory}
+              onUpdateClick={() => this.handleUpdateRecipe(this.props.recipeId)}
             />
           </Modal>
         </Container>
@@ -177,7 +186,7 @@ const mapDispatchToProps = dispatch => {
     return {
       getRecipes: () => dispatch(actions.getRecipes()),
       handleDeleteRecipe: (id) => dispatch(actions.deleteRecipe(id)),
-      getRecipt: (id) => dispatch(actions.getRecipe(id))
+      getRecipe: (id) => dispatch(actions.getRecipe(id))
     };
 };
 

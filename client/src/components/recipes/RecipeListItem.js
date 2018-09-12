@@ -8,7 +8,7 @@ const RecipeListItem = (props) => (
        <h5 className="font-weight-bold">{props.title}</h5>
      </div>
      <div className="col-auto">
-         <Button color="danger" onClick={props.onDeleteClick}>DELETE</Button>
+      <Button color="danger" onClick={props.onDeleteClick}>DELETE</Button>
      </div>
  </div>
 </ListGroupItem>

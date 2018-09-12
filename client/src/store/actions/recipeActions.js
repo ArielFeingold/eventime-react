@@ -11,6 +11,7 @@ export const addRecipeSuccess = ( recipe ) => {
   history.push('/recipes')
     return {
         type: actionTypes.ADD_RECIPE_SUCCESS,
+        recipeId: recipe.id,
         recipeTitle: recipe.title,
         recipeCategory: recipe.category,
         recipeingredients: recipe.ingredients
@@ -60,7 +61,64 @@ export const addRecipe = (title, ingredients, category) => {
     }
 }
 
+export const updateRecipeStart = () => {
+    return {
+        type: actionTypes.UPDATE_RECIPE_START
+    };
+};
 
+export const updateRecipeSuccess = ( recipe ) => {
+  history.push('/recipes')
+    return {
+        type: actionTypes.UPDATE_RECIPE_SUCCESS,
+        recipeId: recipe.id,
+        recipeTitle: recipe.title,
+        recipeCategory: recipe.category,
+        recipeingredients: recipe.ingredients
+    };
+};
+
+export const updateRecipeFail = (errors) => {
+    return {
+        type: actionTypes.ADD_RECIPE_FAIL,
+        errors: errors
+    };
+};
+
+export const updateRecipe = (id, title, ingredients, category) => {
+  return dispatch => {
+    dispatch(addRecipeStart());
+    const recipeData = {
+      recipe: {
+        title: title,
+        ingredients: ingredients,
+        category: category,
+      }
+    };
+    let url = `http://localhost:3001/api/recipes/${id}`;
+    const token = localStorage.getItem('token')
+    fetch(url, {
+            method: "PATCH",
+            mode: "cors",
+            credentials: "same-origin",
+            headers: {
+              'Authorization': `Bearer + ${token}`,
+              'Content-Type': 'application/json; charset=utf-8"d'
+            },
+            body: JSON.stringify(recipeData),
+        })
+        .then( response => {
+          return response.json()
+        })
+        .then( json => {
+          if (json.status === 400) { throw json }
+          dispatch(updateRecipeSuccess(json.recipe))
+        })
+        .catch(err => {
+            dispatch(updateRecipeFail(err.errors));
+        });
+    }
+}
 
 export const getRecipesStart = () => {
     return {
