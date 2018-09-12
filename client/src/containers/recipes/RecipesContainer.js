@@ -1,28 +1,183 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { } from 'mdbreact';
+import { Redirect } from 'react-router-dom';
+import {
+  Container,
+  Collapse,
+  ListGroupItem,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  ListGroup,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
+import { Row, Col, Modal } from 'mdbreact';
+import RecipeListItem from '../../components/recipes/RecipeListItem';
+import RecipeShow from '../../components/recipes/RecipeShow';
+import Spinner from '../../components/UI/Spinner'
 
 
 class RecipesContainer extends Component {
-  state = {
 
+  state = {
+    modal: false,
+    id: null,
+    title: "",
+    ingredients: "",
+    category: "",
+    filter: "All"
   };
 
+toggle = () => {
+  this.setState({
+    modal: !this.state.modal
+  });
+}
+
+componentDidMount = () => {
+  this.props.getRecipes();
+};
+
+handleChange = (event) => {
+  this.setState({
+    [event.target.name]: event.target.value
+  })
+}
+
+setFilter = (category) => {
+    this.setState({
+      filter: category
+    });
+  }
+
+handleShowRecipe = (recipeId) => {
+  this.props.getRecipt(recipeId)
+  // this.toggle()
+}
+
   render() {
-    return( "Recipes")
+
+    let userRecipes = [];
+    if(this.props.userRecipes) {
+      userRecipes =
+       this.props.userRecipes.map((recipe) =>
+          <RecipeListItem
+            style={{cursor: 'pointer'}}
+            onDeleteClick={() => this.props.handleDeleteRecipe(recipe.id)}
+            handleShowRecipe={() => this.handleShowRecipe(recipe.id)}
+            key={recipe.id}
+            title={recipe.title}/>
+        )
+    }
+    if(this.state.filter !== "All" && userRecipes.length > 0){
+      const filteredRecipes = this.props.userRecipes.filter(recipe => recipe.category === this.state.filter)
+    if(filteredRecipes){
+     userRecipes = filteredRecipes.map( recipe => (
+       <RecipeListItem
+         style={{cursor: 'pointer'}}
+         onDeleteClick={() => this.props.handleDeleteRecipe(recipe.id)}
+         handleShowRecipe={() => this.handleShowRecipe(recipe.id)}
+         key={recipe.id}
+         title={recipe.title}/>
+     ));
+    }
+   }
+
+    let spinner = null;
+      if ( this.props.loading ) {spinner = <Spinner />}
+
+    let authRedirect = null;
+      if ( !this.props.isAuthenticated ) { authRedirect = <Redirect to="/Login" /> }
+    return(
+      <React.Fragment>
+        <Container>
+          <Modal isOpen={this.state.modal} toggle={this.toggle}>
+            <RecipeShow
+              key={this.props.recipeId}
+              title={this.props.recipeTitle}
+              ingrediants={this.props.recipeIngredients}
+              category={this.props.recipeId}
+            />
+          </Modal>
+        </Container>
+        <Container className="mt-3 mx-auto">
+          {authRedirect}
+          {spinner}
+          <h2>Recipe Book</h2>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand style={{cursor: "default"}}>Filter By Category</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  {this.state.filter}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem onClick={() => this.setFilter("All")}>
+                    All Recipes
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => this.setFilter("Appetizer")}>
+                    Appetizer
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Soup")}>
+                    Soup
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Meat")}>
+                    Meat
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Fish & Seafood")}>
+                    Fish & Seafood
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Vegetables")}>
+                    Vegetables
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Pasta")}>
+                    Pasta
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Desserts")}>
+                    Desserts
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.setFilter("Uncategorized")}>
+                    Uncategorized
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+        <ListGroup>
+          {userRecipes}
+        </ListGroup>
+      </Container>
+    </React.Fragment>
+    )
   }
 }
 
 const mapStateToProps = state => {
     return {
+      userRecipes: state.recipe.userRecipes,
+      isAuthenticated: state.auth.token !== null,
+      loading: state.recipe.loading,
+      recipeId: state.recipe.recipeId,
+      recipeTitle: state.recipe.recipeTitle,
+      recipeIngredients: state.recipe.recipeIngredients,
+      recipeCategory: state.recipe.recipeCategory,
 
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-      onAdd: (title, description, category) => dispatch( actions.addRecipe( title, description, category))
+      getRecipes: () => dispatch(actions.getRecipes()),
+      handleDeleteRecipe: (id) => dispatch(actions.deleteRecipe(id)),
+      getRecipt: (id) => dispatch(actions.getRecipe(id))
     };
 };
 

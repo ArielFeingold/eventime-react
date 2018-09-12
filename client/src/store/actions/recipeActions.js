@@ -17,11 +17,10 @@ export const addRecipeSuccess = ( recipe ) => {
     };
 };
 
-export const addRecipeFail = (errors) => {
-  history.push('/new-recipe')
+export const addRecipeFail = (error) => {
     return {
         type: actionTypes.ADD_RECIPE_FAIL,
-        errors: errors
+        error: error
     };
 };
 
@@ -58,5 +57,107 @@ export const addRecipe = (title, ingredients, category) => {
         .catch(err => {
             dispatch(addRecipeFail(err.errors));
         });
+    }
+}
+
+
+
+export const getRecipesStart = () => {
+    return {
+        type: actionTypes.GET_RECIPES_START
+    };
+};
+
+export const getRecipesSuccess = ( recipes ) => {
+    return {
+        type: actionTypes.GET_RECIPES_SUCCESS,
+        recipes: recipes
+    };
+};
+
+export const getRecipesFail = (error) => {
+    return {
+        type: actionTypes.GET_RECIPES_FAIL,
+        error: error
+    };
+};
+
+export const getRecipes = () =>{
+  return dispatch => {
+    dispatch(getRecipesStart());
+    const token = localStorage.getItem('token')
+    const url = 'http://localhost:3001/api/recipes'
+    fetch(url, {
+       method: 'GET',
+       headers: {
+         'Authorization': `Bearer + ${token}`,
+         'Content-Type': 'application/json; charset=utf-8"d'
+       },
+     })
+     .then( response => {
+       return response.json()
+     })
+     .then( json => {
+       if(json.status !== 200) {throw json}
+       dispatch(getRecipesSuccess(json.recipes))
+     })
+     .catch( err => {
+         dispatch(getRecipesFail(err.error))
+     })
+  }
+}
+
+export const deleteRecipe = (id) =>{
+  return dispatch => {
+    const token = localStorage.getItem('token')
+    const url = `http://localhost:3001/recipes/${id}`
+    fetch(url, {
+       method: 'DELETE',
+       headers: {
+         'Authorization': `Bearer + ${token}`,
+         'Content-Type': 'application/json; charset=utf-8"d'
+       },
+     })
+  }
+}
+
+export const getRecipeSuccess = ( recipe ) => {
+    return {
+        type: actionTypes.GET_RECIPE_SUCCESS,
+        recipeId: recipe.id,
+        recipeTitle: recipe.title,
+        recipeCategory: recipe.category,
+        recipeIngredients: recipe.ingredients
+    };
+};
+
+export const getRecipeFail = (error) => {
+    return {
+        type: actionTypes.GET_RECIPE_FAIL,
+        error: error
+    };
+};
+
+export const getRecipe = (recipeId) =>{
+  return dispatch => {
+    const token = localStorage.getItem('token')
+    const url = `http://localhost:3001/api/recipes/${recipeId}`
+    fetch(url, {
+       method: 'GET',
+       headers: {
+         'Authorization': `Bearer + ${token}`,
+         'Content-Type': 'application/json; charset=utf-8"d'
+       },
+     })
+     .then( response => {
+       return response.json()
+     })
+     .then( json => {
+       if(json.status !== 200) {throw json}
+       dispatch(getRecipeSuccess(json.recipes))
+     })
+     .catch( err => {
+         dispatch(getRecipeFail(err.error))
+     })
   }
 }

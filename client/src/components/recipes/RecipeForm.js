@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, Input } from 'reactstrap';
 import { Button } from 'mdbreact'
 
-const AddRecipeForm = (props) => {
+const RecipeForm = (props) => {
   let selectError = ""
   if(props.errors){
     selectError = <p style={{color:"red", fontSize: "13px"}}>Category is required</p>
@@ -38,4 +38,4 @@ const AddRecipeForm = (props) => {
     )
   }
 
-export default AddRecipeForm;
+export default RecipeForm;

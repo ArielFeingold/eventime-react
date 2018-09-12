@@ -6,5 +6,8 @@ export {
 } from './authActions'
 
 export {
-addRecipe
+addRecipe,
+getRecipes,
+deleteRecipe,
+getRecipe
 } from './recipeActions'

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
 import { Form, Container, Row, Col} from 'mdbreact';
-import AddRecipeForm from '../../components/recipes/AddRecipeForm'
+import RecipeForm from '../../components/recipes/RecipeForm'
 import history from '../../history';
+import Spinner from '../../components/UI/Spinner'
 
 
 class RecipeContainer extends Component {
@@ -39,31 +40,41 @@ handleSubmit = ( event ) => {
   })
 }
   render() {
-    return(
-  <Container className="mt-3 mx-auto">
-    <Row className="row justify-content-center">
-      <Col md="10">
-        <h3>Create New Recipe</h3>
-        <AddRecipeForm
-          title={this.state.title}
-          description={this.state.description}
-          category={this.state.category}
-          onTextChange={(event) => this.handleTextChange(event)}
-          onSelectChange={(event) => this.handleSelectChange(event)}
-          onSubmit={(event) => this.handleSubmit(event)}
-          errors={this.props.errors}
-          />
-      </Col>
-    </Row>
-</Container>
 
+    let spinner = null;
+      if ( this.props.loading ) {spinner = <Spinner />}
+
+    let authRedirect = null;
+      if ( !this.props.isAuthenticated ) { authRedirect = <Redirect to="/Login" /> }
+
+  return(
+        <Container className="mt-3 mx-auto">
+          {authRedirect}
+          {spinner}
+          <Row className="row justify-content-center">
+            <Col md="10">
+              <h3>Create New Recipe</h3>
+              <RecipeForm
+                title={this.state.title}
+                description={this.state.description}
+                category={this.state.category}
+                onTextChange={(event) => this.handleTextChange(event)}
+                onSelectChange={(event) => this.handleSelectChange(event)}
+                onSubmit={(event) => this.handleSubmit(event)}
+                errors={this.props.errors}
+                />
+            </Col>
+          </Row>
+      </Container>
     )
   }
 }
 
 const mapStateToProps = state => {
     return {
-      errors: state.recipe.errors
+      errors: state.recipe.errors,
+      loading: state.recipe.loading,
+      isAuthenticated: state.auth.token !== null
     };
 };
 
