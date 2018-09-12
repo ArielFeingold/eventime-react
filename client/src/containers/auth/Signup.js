@@ -38,9 +38,10 @@ class Signup extends Component {
       let emailError = '';
       let passwordError = ''
       if ( this.props.errors ) {
-        usernameError = this.props.errors["username"][0];
-        emailError = this.props.errors["username"][0];
-        passwordError = this.props.errors["username"][0]
+        if(this.props.errors.username){usernameError = this.props.errors.username[0]};
+        if(this.props.errors.email){emailError = this.props.errors.email[0]};
+        if(this.props.errors.password){passwordError = this.props.errors.password[0]};
+
       }
 
       let authRedirect = null;
@@ -66,9 +67,11 @@ class Signup extends Component {
                 <input onChange={this.handleChange} type="email" name="email" value={this.state.email} className="form-control" required/>
                 <div className="invalid-feedback">Email {emailError}</div>
                 <br/>
-                <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">Choose Password</label>
-                <input onChange={this.handleChange} type="password" name="password" value={this.state.password}  className="form-control" pattern=".{8,}" placeholder="Eight or more characters" required/>
+                <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Password</label>
+                <input onChange={this.handleChange} type="password" name="password" value={this.state.password} pattern="{8,}" className="form-control" required/>
+                <small className="form-text text-muted">Password should be at least 8 characters</small>
                 <div className="invalid-feedback">Password {passwordError}</div>
+                <br/>
                 <div className="text-center mt-4">
                   <Button className="btn btn-indigo" type="submit">Register</Button>
                 </div>
