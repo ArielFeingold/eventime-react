@@ -154,7 +154,7 @@ export const getRecipe = (recipeId) =>{
      })
      .then( json => {
        if(json.status !== 200) {throw json}
-       dispatch(getRecipeSuccess(json.recipes))
+       dispatch(getRecipeSuccess(json.recipe))
      })
      .catch( err => {
          dispatch(getRecipeFail(err.error))

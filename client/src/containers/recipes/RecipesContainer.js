@@ -56,7 +56,7 @@ setFilter = (category) => {
 
 handleShowRecipe = (recipeId) => {
   this.props.getRecipt(recipeId)
-  // this.toggle()
+  this.toggle()
 }
 
   render() {
