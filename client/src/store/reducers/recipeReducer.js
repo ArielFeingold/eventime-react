@@ -12,7 +12,14 @@ const initialState = {
 };
 
 const addRecipeStart = ( state, action ) => {
-    return updateObject( state, { error: null, loading: true });
+  return updateObject( state, {
+    errors: null,
+    loading: true,
+    recipeId: "",
+    recipeTitle: "",
+    recipeIngredients: "",
+    recipeCategory: ""
+  });
 };
 
 const addRecipeSuccess = (state, action) => {

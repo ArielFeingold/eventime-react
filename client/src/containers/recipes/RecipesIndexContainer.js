@@ -21,7 +21,7 @@ import Spinner from '../../components/UI/Spinner'
 import history from '../../history';
 
 
-class RecipesContainer extends Component {
+class RecipesIndexContainer extends Component {
 
   state = {
     modal: false,
@@ -193,4 +193,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )(RecipesContainer)
+export default connect( mapStateToProps, mapDispatchToProps )(RecipesIndexContainer)

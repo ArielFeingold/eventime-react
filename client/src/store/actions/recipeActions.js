@@ -115,7 +115,7 @@ export const updateRecipeFail = (errors) => {
 
 export const updateRecipe = (id, title, ingredients, category) => {
   return dispatch => {
-    dispatch(addRecipeStart());
+    dispatch(updateRecipeStart());
     const recipeData = {
       recipe: {
         title: title,
@@ -139,9 +139,10 @@ export const updateRecipe = (id, title, ingredients, category) => {
           return response.json()
         })
         .then( json => {
-          if (json.status === 400) { throw json }
+          if (json.status !== 200) { throw json }
           dispatch(updateRecipeSuccess(json.recipe))
         })
+        .then()
         .catch(err => {
             dispatch(updateRecipeFail(err.errors));
         });

@@ -7,28 +7,12 @@ import RecipeForm from '../../components/recipes/RecipeForm'
 import Spinner from '../../components/UI/Spinner'
 
 
-class RecipeContainer extends Component {
+class CreateRecipeContainer extends Component {
   state = {
     title: "",
     ingredients: "",
-    category: "",
-    isNew: true
+    category: ""
   };
-
-componentDidMount(){
-  this.checkIfNew()
-}
-
-checkIfNew = () => {
-  if(this.props.recipeId){
-    this.setState({
-      title: this.props.recipeTitle,
-      ingredients: this.props.recipeIngredients,
-      category: this.props.recipeCategory,
-      isNew: false
-    })
-  }
-}
 
 handleTextChange = (event) => {
   this.setState({
@@ -45,19 +29,10 @@ handleSelectChange = (event) => {
 handleSubmit = ( event ) => {
   event.preventDefault();
   event.target.className += ' was-validated';
-  if(this.state.isNew){
-    this.props.onAdd(this.state.title, this.state.ingredients, this.state.category)
-  }
-  if(!this.state.isNew){
-    this.props.onUpdate(this.props.recipeId, this.state.title, this.state.ingredients, this.state.category)
-  }
-
-  this.setState({
-    title: "",
-    ingredients: "",
-    category: ""
-  })
+  this.props.onAdd(this.state.title, this.state.ingredients, this.state.category)
 }
+
+
   render() {
 
     let spinner = null;
@@ -66,18 +41,13 @@ handleSubmit = ( event ) => {
     let authRedirect = null;
       if ( !this.props.isAuthenticated ) { authRedirect = <Redirect to="/Login" /> }
 
-    let formTitle = "Create New Recipe"
-      if(!this.state.isNew){
-        formTitle = "Update Recipe"
-      }
-
   return(
         <Container className="mt-3 mx-auto">
           {authRedirect}
           {spinner}
           <Row className="row justify-content-center">
             <Col md="10">
-              <h3>{formTitle}</h3>
+              <h3>Create New Recipe</h3>
               <RecipeForm
                 title={this.state.title}
                 ingredients={this.state.ingredients}
@@ -99,7 +69,6 @@ const mapStateToProps = state => {
       errors: state.recipe.errors,
       loading: state.recipe.loading,
       isAuthenticated: state.auth.token !== null,
-      recipeId: state.recipe.recipeId,
       recipeTitle: state.recipe.recipeTitle,
       recipeIngredients: state.recipe.recipeIngredients,
       recipeCategory: state.recipe.recipeCategory,
@@ -109,8 +78,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
       onAdd: (title, ingredients, category) => dispatch( actions.addRecipe( title, ingredients, category)),
-      onUpdate: (id, title, ingredients, category) => dispatch( actions.updateRecipe( id, title, ingredients, category))
     };
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )(RecipeContainer)
+export default connect( mapStateToProps, mapDispatchToProps )(CreateRecipeContainer)
