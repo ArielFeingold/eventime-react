@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import {
   Container,
   Collapse,
-  ListGroupItem,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -15,7 +14,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
-import { Row, Col, Modal } from 'mdbreact';
+import { Modal } from 'mdbreact';
 import RecipeListItem from '../../components/recipes/RecipeListItem';
 import RecipeShow from '../../components/recipes/RecipeShow';
 import Spinner from '../../components/UI/Spinner'
@@ -33,15 +32,18 @@ class RecipesContainer extends Component {
     filter: "All"
   };
 
+  componentDidMount = () => {
+    this.props.getRecipes();
+  };
+
 toggle = () => {
   this.setState({
     modal: !this.state.modal
   });
+  this.props.clearRecipe()
 }
 
-componentDidMount = () => {
-  this.props.getRecipes();
-};
+
 
 handleChange = (event) => {
   this.setState({
@@ -186,7 +188,8 @@ const mapDispatchToProps = dispatch => {
     return {
       getRecipes: () => dispatch(actions.getRecipes()),
       handleDeleteRecipe: (id) => dispatch(actions.deleteRecipe(id)),
-      getRecipe: (id) => dispatch(actions.getRecipe(id))
+      getRecipe: (id) => dispatch(actions.getRecipe(id)),
+      clearRecipe: () => dispatch(actions.clearRecipe())
     };
 };
 

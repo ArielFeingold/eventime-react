@@ -70,7 +70,7 @@ class Signup extends Component {
                 <input onChange={this.handleChange} type="password" name="password" value={this.state.password}  className="form-control" pattern=".{8,}" placeholder="Eight or more characters" required/>
                 <div className="invalid-feedback">Password {passwordError}</div>
                 <div className="text-center mt-4">
-                  <button className="btn btn-indigo" type="submit">Register</button>
+                  <Button className="btn btn-indigo" type="submit">Register</Button>
                 </div>
               </form>
             </Col>

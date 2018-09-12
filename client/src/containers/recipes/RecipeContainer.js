@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/index';
-import { Form, Container, Row, Col} from 'mdbreact';
+import { Container, Row, Col} from 'mdbreact';
 import RecipeForm from '../../components/recipes/RecipeForm'
 import Spinner from '../../components/UI/Spinner'
 

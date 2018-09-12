@@ -65,7 +65,7 @@ class Login extends Component {
               <input type="password" id="defaultFormLoginPasswordEx" className="form-control" value={this.state.password} name="password" onChange={this.handleChange} required/>
               <div className="invalid-feedback">Password is Required</div>
               <div className="text-center mt-4">
-              <button className="btn btn-indigo" type="submit">Login</button>
+              <Button className="btn btn-indigo" type="submit">Login</Button>
               </div>
           </form>
           </Col>

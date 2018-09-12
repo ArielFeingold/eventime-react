@@ -10,18 +10,14 @@ export const addRecipeStart = () => {
 export const addRecipeSuccess = ( recipe ) => {
   history.push('/recipes')
     return {
-        type: actionTypes.ADD_RECIPE_SUCCESS,
-        recipeId: recipe.id,
-        recipeTitle: recipe.title,
-        recipeCategory: recipe.category,
-        recipeingredients: recipe.ingredients
+        type: actionTypes.ADD_RECIPE_SUCCESS
     };
 };
 
-export const addRecipeFail = (error) => {
+export const addRecipeFail = (errors) => {
     return {
         type: actionTypes.ADD_RECIPE_FAIL,
-        error: error
+        errors: errors
     };
 };
 
@@ -61,6 +57,38 @@ export const addRecipe = (title, ingredients, category) => {
     }
 }
 
+export const deleteRecipeStart = () => {
+    return {
+        type: actionTypes.DELETE_RECIPE_START
+    };
+};
+
+export const deleteRecipeSuccess = (id) => {
+  history.push('/')
+    return {
+        type: actionTypes.DELETE_RECIPE_SUCCESS,
+        id: id
+    };
+};
+
+export const deleteRecipe = (id) => {
+  return dispatch => {
+    dispatch(addRecipeStart());
+    let url = `http://localhost:3001/api/recipes/${id}`;
+    const token = localStorage.getItem('token')
+    fetch(url, {
+            method: "DELETE",
+            mode: "cors",
+            credentials: "same-origin",
+            headers: {
+              'Authorization': `Bearer + ${token}`,
+              'Content-Type': 'application/json; charset=utf-8"d'
+            },
+        })
+        .then(dispatch(deleteRecipeSuccess(id)))
+    }
+}
+
 export const updateRecipeStart = () => {
     return {
         type: actionTypes.UPDATE_RECIPE_START
@@ -80,7 +108,7 @@ export const updateRecipeSuccess = ( recipe ) => {
 
 export const updateRecipeFail = (errors) => {
     return {
-        type: actionTypes.ADD_RECIPE_FAIL,
+        type: actionTypes.UPDATE_RECIPE_FAIL,
         errors: errors
     };
 };
@@ -165,20 +193,6 @@ export const getRecipes = () =>{
   }
 }
 
-export const deleteRecipe = (id) =>{
-  return dispatch => {
-    const token = localStorage.getItem('token')
-    const url = `http://localhost:3001/recipes/${id}`
-    fetch(url, {
-       method: 'DELETE',
-       headers: {
-         'Authorization': `Bearer + ${token}`,
-         'Content-Type': 'application/json; charset=utf-8"d'
-       },
-     })
-  }
-}
-
 export const getRecipeSuccess = ( recipe ) => {
     return {
         type: actionTypes.GET_RECIPE_SUCCESS,
@@ -219,3 +233,9 @@ export const getRecipe = (recipeId) =>{
      })
   }
 }
+
+export const clearRecipe = () => {
+    return {
+        type: actionTypes.CLEAR_RECIPE
+    };
+};

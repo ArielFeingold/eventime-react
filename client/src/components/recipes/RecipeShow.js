@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, ModalBody, ModalHeader, ModalFooter } from 'mdbreact'
+import { Button, ModalBody, ModalHeader, ModalFooter } from 'mdbreact'
 
 const RecipeShow = (props) => (
   <React.Fragment>
