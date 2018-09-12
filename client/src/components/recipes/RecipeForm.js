@@ -32,7 +32,7 @@ const RecipeForm = (props) => {
         </FormGroup>
         {selectError}
         <Button block color="primary" type="submit" value="submit">Submit Recipe</Button>
-        <Button block color="danger">Cancle</Button>
+
       </Form>
     )
   }
