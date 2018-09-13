@@ -93,7 +93,12 @@ export const deleteRecipe = (id) => {
               'Content-Type': 'application/json; charset=utf-8"d'
             },
         })
+        .then(handleErrors)
         .then(dispatch(deleteRecipeSuccess(id)))
+        .catch(err => {
+            history.push('/page-not-found');
+          }
+        );
 
     }
 }
