@@ -50,11 +50,6 @@ handleSubmit = ( event ) => {
     let authRedirect = null;
       if ( !this.props.isAuthenticated ) { authRedirect = <Redirect to="/Login" /> }
 
-    let formTitle = "Create New Recipe"
-      if(!this.state.isNew){
-        formTitle = "Update Recipe"
-      }
-
   return(
         <Container className="mt-3 mx-auto">
           {authRedirect}

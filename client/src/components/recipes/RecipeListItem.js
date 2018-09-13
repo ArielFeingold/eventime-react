@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroupItem, Button } from 'mdbreact'
+import { ListGroupItem } from 'mdbreact'
 
 const RecipeListItem = (props) => (
 <ListGroupItem>

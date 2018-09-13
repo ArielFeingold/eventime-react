@@ -4,9 +4,7 @@ import * as actions from '../../store/actions/index';
 import { Redirect } from 'react-router-dom';
 import {
   Container,
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   ListGroup,
@@ -14,7 +12,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem ,
-  Row
   } from 'reactstrap';
 import { Modal } from 'mdbreact';
 import RecipeListItem from '../../components/recipes/RecipeListItem';
@@ -71,6 +68,11 @@ handleShowRecipe = (recipeId) => {
 handleUpdateRecipe = (recipeId) => {
   this.props.getRecipe(recipeId)
   history.push(`/recipes/update/${recipeId}`)
+}
+
+handleDeleteRecipe = (id) => {
+  this.toggle()
+  this.props.handleDeleteRecipe(id);
 
 }
 
@@ -82,7 +84,6 @@ handleUpdateRecipe = (recipeId) => {
        this.props.userRecipes.map((recipe) =>
           <RecipeListItem
             style={{cursor: 'pointer'}}
-            onDeleteClick={() => this.props.handleDeleteRecipe(recipe.id)}
             handleShowRecipe={() => this.handleShowRecipe(recipe.id)}
             key={recipe.id}
             title={recipe.title}/>
@@ -117,7 +118,7 @@ handleUpdateRecipe = (recipeId) => {
               ingrediants={this.props.recipeIngredients}
               category={this.props.recipeCategory}
               onUpdateClick={() => this.handleUpdateRecipe(this.props.recipeId)}
-              onDeleteClick={() => this.props.handleDeleteRecipe(this.props.recipeId)}
+              onDeleteClick={() => this.handleDeleteRecipe(this.props.recipeId)}
             />
           </Modal>
         </Container>
@@ -132,7 +133,7 @@ handleUpdateRecipe = (recipeId) => {
                 <DropdownToggle style={{color: "white"}} nav caret>
                   {this.state.filter}
                 </DropdownToggle>
-                <DropdownMenu left>
+                <DropdownMenu >
                   <DropdownItem onClick={() => this.setFilter("All")}>
                     All Recipes
                   </DropdownItem>

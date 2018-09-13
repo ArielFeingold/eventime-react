@@ -96,7 +96,9 @@ export const deleteRecipe = (id) => {
         .then(handleErrors)
         .then(dispatch(deleteRecipeSuccess(id)))
         .catch(err => {
+          if(err.message === "Failed to fetch") {
             history.push('/page-not-found');
+          }
           }
         );
 

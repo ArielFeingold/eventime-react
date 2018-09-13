@@ -33,8 +33,6 @@ class Signup extends Component {
       let spinner = null;
       if ( this.props.loading ) {spinner = <Spinner />}
 
-      let errorMessagesEmail = null;
-
       let usernameError =  '';
       let emailError = '';
       let passwordError = ''
