@@ -124,17 +124,15 @@ handleUpdateRecipe = (recipeId) => {
         <Container className="mt-3 mx-auto">
           {authRedirect}
           {spinner}
-          <h2>Recipes</h2>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand style={{cursor: "default"}}>Filter By Category</NavbarBrand>
-          <NavbarToggler onClick={this.navToggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+          <h2 className="mb-3 pl-2"  style={{ color: "#0379b7"}}>Recipes</h2>
+        <Navbar color=" light-blue darken-3" light expand="xs">
+          <NavbarBrand style={{cursor: "default", color: "white"}}>Filter By Category</NavbarBrand>
+            <Nav navbar>
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
+                <DropdownToggle style={{color: "white"}} nav caret>
                   {this.state.filter}
                 </DropdownToggle>
-                <DropdownMenu right>
+                <DropdownMenu left>
                   <DropdownItem onClick={() => this.setFilter("All")}>
                     All Recipes
                   </DropdownItem>
@@ -166,7 +164,6 @@ handleUpdateRecipe = (recipeId) => {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-          </Collapse>
         </Navbar>
         <ListGroup>
           {userRecipes}

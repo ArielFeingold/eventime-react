@@ -48,7 +48,7 @@ handleSubmit = ( event ) => {
           {spinner}
           <Row className="row justify-content-center">
             <Col md="10">
-              <h3>Create New Recipe</h3>
+              <h3 className="mb-3"  style={{ color: "#0079b9"}}>Create New Recipe</h3>
               <RecipeForm
                 title={this.state.title}
                 ingredients={this.state.ingredients}

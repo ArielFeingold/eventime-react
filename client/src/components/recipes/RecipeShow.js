@@ -4,12 +4,11 @@ import { Button, ModalBody, ModalHeader, ModalFooter } from 'mdbreact'
 const RecipeShow = (props) => (
   <React.Fragment>
     <ModalHeader >
-      {props.title}
+      <span className="mb-1" style={{ color: "#2b55b0"}}>{props.title}</span>
       <p className="font-italic h6">{props.category}</p>
-      <br></br>
-      <p className="h5">{props.ingrediants}</p>
     </ModalHeader>
-      <ModalBody>
+      <ModalBody style={{color: "#616161"}}>
+        <p className="h5 mb-1">Ingredients:</p>
         {props.ingrediants}
       </ModalBody>
       <ModalFooter>

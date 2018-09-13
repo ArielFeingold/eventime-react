@@ -6,6 +6,7 @@ import * as actions from '../../store/actions/index';
 import { Container, Row, Col, Button } from 'mdbreact';
 import { Alert } from 'reactstrap';
 import Spinner from '../../components/UI/Spinner'
+import BodyBackgroundColor from 'react-body-backgroundcolor'
 
 class Signup extends Component {
 
@@ -62,26 +63,28 @@ class Signup extends Component {
             <Col md="3"/>
             <Col md="6">
               {spinner}
-              <form  className='needs-validation z-depth-5 p-3' onSubmit={this.submitHandler} noValidate>
-                <p className="h4 text-center mb-4">Sign up</p>
-                {takenWarning}
-                <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Username</label>
-                <input onChange={this.handleChange} type="text" name="username" value={this.state.username} className="form-control" required/>
-                <div className="invalid-feedback">{usernameError}</div>
-                <br/>
-                <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your Email</label>
-                <input onChange={this.handleChange} type="email" name="email" value={this.state.email} className="form-control" required/>
-                <div className="invalid-feedback">{emailError}</div>
-                <br/>
-                <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Password</label>
-                <input onChange={this.handleChange} type="password" name="password" value={this.state.password} className="form-control" required/>
-                <small className="form-text text-muted">Password should be at least 8 characters</small>
-                <div className="invalid-feedback">{passwordError}</div>
-                <br/>
-                <div className="text-center mt-4">
-                  <Button className="btn btn-indigo" type="submit">Register</Button>
-                </div>
-              </form>
+              <BodyBackgroundColor backgroundColor='#e8ecf4'>
+                <form  className='needs-validation p-3' onSubmit={this.submitHandler} noValidate>
+                  <p className="h4 text-center mb-4 mt-2">Sign up</p>
+                  {takenWarning}
+                  <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Username</label>
+                  <input onChange={this.handleChange} type="text" name="username" value={this.state.username} className="form-control" required/>
+                  <div className="invalid-feedback">{usernameError}</div>
+                  <br/>
+                  <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your Email</label>
+                  <input onChange={this.handleChange} type="email" name="email" value={this.state.email} className="form-control" required/>
+                  <div className="invalid-feedback">{emailError}</div>
+                  <br/>
+                  <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Password</label>
+                  <input onChange={this.handleChange} type="password" name="password" value={this.state.password} className="form-control" required/>
+                  <small className="form-text text-muted">Password should be at least 8 characters</small>
+                  <div className="invalid-feedback">{passwordError}</div>
+                  <br/>
+                  <div className="text-center mt-4">
+                    <Button className="btn btn-indigo" type="submit">Register</Button>
+                  </div>
+                </form>
+              </BodyBackgroundColor>
             </Col>
           </Row>
         </Container>

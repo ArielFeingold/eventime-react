@@ -19,7 +19,7 @@ onClick = this.onClick.bind(this);
     }
     render() {
         return (
-            <Navbar color="indigo" dark expand="md" scrolling>
+            <Navbar color="light-blue darken-3" dark expand="md" scrolling>
                 <NavbarBrand style={{color: "white", cursor: "default"}} disabled>
                     <strong>My CookBook</strong>
                 </NavbarBrand>

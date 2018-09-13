@@ -54,8 +54,8 @@ class Login extends Component {
           <Col md="3" />
           <Col md="6">
             {spinner}
-            <form className='needs-validation z-depth-5 p-3' onSubmit={this.submitHandler} noValidate>
-              <p className="h4 text-center mb-4">Log In</p>
+            <form className='needs-validation p-3' onSubmit={this.submitHandler} noValidate>
+              <p className="h4 text-center mb-4 mt-2">Log In</p>
               {errorMessage}
               <label htmlFor="defaultFormLoginEmailEx" className="grey-text">Your email</label>
               <input type="email" name="email" value={this.state.email} id="defaultFormLoginEmailEx" onChange={this.handleChange} className="form-control" required/>
