@@ -21,6 +21,7 @@ handleTextChange = (event) => {
 }
 
 handleSelectChange = (event) => {
+  event.target.className += 'valid';
   this.setState({
     category: event.target.value
   })

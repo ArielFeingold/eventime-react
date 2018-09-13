@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import history from '../../history';
+import { handleErrors } from '../../shared/utility';
 
 export const addRecipeStart = () => {
     return {
@@ -44,6 +45,7 @@ export const addRecipe = (title, ingredients, category) => {
             },
             body: JSON.stringify(recipeData),
         })
+        .then(handleErrors)
         .then( response => {
           return response.json()
         })
@@ -52,7 +54,13 @@ export const addRecipe = (title, ingredients, category) => {
           dispatch(addRecipeSuccess(json.recipe))
         })
         .catch(err => {
+          if(err.status === 400) {
             dispatch(addRecipeFail(err.errors));
+          }
+          if(err.message === "Failed to fetch"){
+            dispatch(addRecipeFail("No Connection"))
+            history.push('/page-not-found');
+          }
         });
     }
 }

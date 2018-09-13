@@ -24,7 +24,6 @@ export const signupFail = (signupError) => {
 };
 
 export const signup = (email, password, username) => {
-
     return dispatch => {
       dispatch(signupStart());
       const authData = {
