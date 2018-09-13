@@ -266,9 +266,3 @@ export const getRecipe = (recipeId) =>{
      })
   }
 }
-
-export const clearRecipe = () => {
-    return {
-        type: actionTypes.CLEAR_RECIPE
-    };
-};
