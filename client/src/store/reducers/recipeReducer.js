@@ -119,7 +119,6 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.GET_RECIPE_SUCCESS: return getRecipeSuccess(state, action);
         case actionTypes.GET_RECIPE_FAIL: return getRecipeFail(state, action);
 
-        case actionTypes.CLEAR_RECIPE: return clearRecipe(state, action);
 
 
 
