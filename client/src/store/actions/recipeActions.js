@@ -149,6 +149,7 @@ export const updateRecipe = (id, title, ingredients, category) => {
             },
             body: JSON.stringify(recipeData),
         })
+        .then(handleErrors)
         .then( response => {
           return response.json()
         })
@@ -158,8 +159,13 @@ export const updateRecipe = (id, title, ingredients, category) => {
         })
         .then()
         .catch(err => {
-            dispatch(updateRecipeFail(err.errors));
-        });
+          if(err.message === "Failed to fetch"){
+            dispatch(addRecipeFail("No Connection"))
+            history.push('/page-not-found');
+          } else {
+            dispatch(addRecipeFail(err.errors));
+          }
+        })
     }
 }
 
@@ -195,6 +201,7 @@ export const getRecipes = () =>{
          'Content-Type': 'application/json; charset=utf-8"d'
        },
      })
+     .then(handleErrors)
      .then( response => {
        return response.json()
      })
@@ -202,8 +209,13 @@ export const getRecipes = () =>{
        if(json.status !== 200) {throw json}
        dispatch(getRecipesSuccess(json.recipes))
      })
-     .catch( err => {
-         dispatch(getRecipesFail(err.error))
+     .catch(err => {
+       if(err.message === "Failed to fetch"){
+         dispatch(getRecipesFail("No Connection"))
+         history.push('/page-not-found');
+       } else {
+         dispatch(getRecipesFail(err.errors));
+       }
      })
   }
 }
@@ -236,6 +248,7 @@ export const getRecipe = (recipeId) =>{
          'Content-Type': 'application/json; charset=utf-8"d'
        },
      })
+     .then(handleErrors)
      .then( response => {
        return response.json()
      })
@@ -243,8 +256,13 @@ export const getRecipe = (recipeId) =>{
        if(json.status !== 200) {throw json}
        dispatch(getRecipeSuccess(json.recipe))
      })
-     .catch( err => {
-         dispatch(getRecipeFail(err.error))
+     .catch(err => {
+       if(err.message === "Failed to fetch"){
+         dispatch(getRecipeFail("No Connection"))
+         history.push('/page-not-found');
+       } else {
+         dispatch(getRecipeFail(err.errors));
+       }
      })
   }
 }
