@@ -13,8 +13,8 @@ const RecipeShow = (props) => (
         {props.ingrediants}
       </ModalBody>
       <ModalFooter>
-        <Button color="secondary" onClick={props.toggle}>Close</Button>{' '}
         <Button color="info" onClick={props.onUpdateClick}>UPDATE</Button>
+        <Button color="danger" onClick={props.onDeleteClick}>DELETE</Button>
     </ModalFooter>
   </React.Fragment>
 )

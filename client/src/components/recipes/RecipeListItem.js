@@ -7,9 +7,6 @@ const RecipeListItem = (props) => (
      <div onClick={props.handleShowRecipe} style={{cursor: "pointer"}} className="col-10-auto mr-auto">
        <h5 className="font-weight-bold">{props.title}</h5>
      </div>
-     <div className="col-auto">
-      <Button color="danger" onClick={props.onDeleteClick}>DELETE</Button>
-     </div>
  </div>
 </ListGroupItem>
 )

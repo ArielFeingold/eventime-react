@@ -53,12 +53,8 @@ const deleteRecipeStart = ( state, action ) => {
     return updateObject( state, { error: null, loading: true } );
 };
 
-// const deleteRecipeSuccess = (state, action) => {
-//     return updateObject( state, { errors: null, loading: false } );
-// };
-
 const deleteRecipeSuccess = (state, action) => {
-  var updatedRecipes = state.userRecipes.filter((recipe) => {
+  const updatedRecipes = state.userRecipes.filter((recipe) => {
         return recipe.id !== action.id;
     })
   return updateObject(state, {

@@ -73,7 +73,7 @@ export const deleteRecipeSuccess = (id) => {
 
 export const deleteRecipe = (id) => {
   return dispatch => {
-    dispatch(addRecipeStart());
+    dispatch(deleteRecipeStart());
     let url = `http://localhost:3001/api/recipes/${id}`;
     const token = localStorage.getItem('token')
     fetch(url, {
@@ -86,6 +86,7 @@ export const deleteRecipe = (id) => {
             },
         })
         .then(dispatch(deleteRecipeSuccess(id)))
+
     }
 }
 

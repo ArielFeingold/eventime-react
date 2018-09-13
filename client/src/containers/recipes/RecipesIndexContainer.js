@@ -13,7 +13,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem ,
+  Row
+  } from 'reactstrap';
 import { Modal } from 'mdbreact';
 import RecipeListItem from '../../components/recipes/RecipeListItem';
 import RecipeShow from '../../components/recipes/RecipeShow';
@@ -29,21 +31,25 @@ class RecipesIndexContainer extends Component {
     title: "",
     ingredients: "",
     category: "",
-    filter: "All"
+    filter: "All",
+    isOpen: false
   };
 
-  componentDidMount = () => {
-    this.props.getRecipes();
-  };
+componentDidMount = () => {
+  this.props.getRecipes();
+};
 
 toggle = () => {
   this.setState({
     modal: !this.state.modal
   });
-  this.props.clearRecipe()
 }
 
-
+navToggle = () => {
+  this.setState({
+    isOpen: !this.state.isOpen
+  });
+}
 
 handleChange = (event) => {
   this.setState({
@@ -88,7 +94,6 @@ handleUpdateRecipe = (recipeId) => {
      userRecipes = filteredRecipes.map( recipe => (
        <RecipeListItem
          style={{cursor: 'pointer'}}
-         onDeleteClick={() => this.props.handleDeleteRecipe(recipe.id)}
          handleShowRecipe={() => this.handleShowRecipe(recipe.id)}
          key={recipe.id}
          title={recipe.title}/>
@@ -112,16 +117,17 @@ handleUpdateRecipe = (recipeId) => {
               ingrediants={this.props.recipeIngredients}
               category={this.props.recipeCategory}
               onUpdateClick={() => this.handleUpdateRecipe(this.props.recipeId)}
+              onDeleteClick={() => this.props.handleDeleteRecipe(this.props.recipeId)}
             />
           </Modal>
         </Container>
         <Container className="mt-3 mx-auto">
           {authRedirect}
           {spinner}
-          <h2>Recipe Book</h2>
+          <h2>Recipes</h2>
         <Navbar color="light" light expand="md">
           <NavbarBrand style={{cursor: "default"}}>Filter By Category</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavbarToggler onClick={this.navToggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
