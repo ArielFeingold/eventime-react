@@ -70,6 +70,7 @@ handleSubmit = ( event ) => {
                 onSelectChange={(event) => this.handleSelectChange(event)}
                 onSubmit={(event) => this.handleSubmit(event)}
                 errors={this.props.errors}
+                update={"true"}
                 />
             </Col>
           </Row>
