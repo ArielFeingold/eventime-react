@@ -14,7 +14,7 @@ const Spinner = () => {
         <RingLoader
           className={override}
           sizeUnit={"px"}
-          size={150}
+          size={70}
           color={'#2F43FF'}
         />
     )

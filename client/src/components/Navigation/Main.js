@@ -7,6 +7,7 @@ import Logout from '../../containers/auth/Logout'
 import CreateRecipeContainer from '../../containers/recipes/CreateRecipeContainer'
 import RecipesIndexContainer from '../../containers/recipes/RecipesIndexContainer'
 import UpdateRecipeContainer from '../../containers/recipes/UpdateRecipeContainer'
+import PageNotFound from '../../components/UI/PageNotFound'
 
 
 const Main = () => (
@@ -19,6 +20,7 @@ const Main = () => (
       <Route path="/recipes" exact component={RecipesIndexContainer} />
       <Route path='/' exact component={Login}/>
       <Route path='/update' exact component={UpdateRecipeContainer}/>
+      <Route path='/page-not-found' exact component={PageNotFound}/>
       <Redirect to="/" />
     </Switch>
   </main>

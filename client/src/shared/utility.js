@@ -4,3 +4,10 @@ export const updateObject = (oldObject, updatedProperties) => {
         ...updatedProperties
     };
 };
+
+export const handleErrors = (response) => {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+}

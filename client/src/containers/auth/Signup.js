@@ -38,10 +38,17 @@ class Signup extends Component {
       let emailError = '';
       let passwordError = ''
       if ( this.props.errors ) {
-        if(this.props.errors.username){usernameError = this.props.errors.username[0]};
-        if(this.props.errors.email){emailError = this.props.errors.email[0]};
-        if(this.props.errors.password){passwordError = this.props.errors.password[0]};
+        if(this.props.errors.username){usernameError = `Username ${this.props.errors.username[0]}`};
+        if(this.props.errors.email){emailError = `Email ${this.props.errors.email[0]}`};
+        if(this.props.errors.password){passwordError = `Password ${this.props.errors.password[0]}`};
 
+      }
+      let takenWarning = '';
+      if(emailError === "has already been taken"){
+        takenWarning =
+        <div>
+          <Alert color="danger">Email has already been taken</Alert>
+        </div>
       }
 
       let authRedirect = null;
@@ -59,18 +66,19 @@ class Signup extends Component {
               {spinner}
               <form  className='needs-validation example z-depth-5 p-3' onSubmit={this.submitHandler} noValidate>
                 <p className="h4 text-center mb-4">Sign up</p>
+                {takenWarning}
                 <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Username</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username} className="form-control" required/>
-                <div className="invalid-feedback">Username {usernameError}</div>
+                <div className="invalid-feedback">{usernameError}</div>
                 <br/>
                 <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">Your Email</label>
                 <input onChange={this.handleChange} type="email" name="email" value={this.state.email} className="form-control" required/>
-                <div className="invalid-feedback">Email {emailError}</div>
+                <div className="invalid-feedback">{emailError}</div>
                 <br/>
                 <label htmlFor="defaultFormRegisterNameEx" className="grey-text">Choose Password</label>
                 <input onChange={this.handleChange} type="password" name="password" value={this.state.password} pattern="{8,}" className="form-control" required/>
                 <small className="form-text text-muted">Password should be at least 8 characters</small>
-                <div className="invalid-feedback">Password {passwordError}</div>
+                <div className="invalid-feedback">{passwordError}</div>
                 <br/>
                 <div className="text-center mt-4">
                   <Button className="btn btn-indigo" type="submit">Register</Button>

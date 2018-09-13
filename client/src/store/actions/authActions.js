@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import jwt_decode from 'jwt-decode';
+import { handleErrors } from '../../shared/utility';
+import history from '../../history';
 
 export const signupStart = () => {
     return {
@@ -42,15 +44,19 @@ export const signup = (email, password, username) => {
               },
               body: JSON.stringify(authData),
           })
+          .then(handleErrors)
           .then( response => {
             return response.json()
           })
           .then( json => {
-            if(json.status === 400) {throw json}
-            dispatch(signupSuccess(json.user.id))
+            if(json.status === 200) {
+              dispatch(signupSuccess(json.user.id))
+            } else {
+              dispatch(signupFail(json.errors))
+            }
           })
           .catch( err => {
-            dispatch(signupFail(err.errors))
+            history.push('/page-not-found')
           })
       };
   }
