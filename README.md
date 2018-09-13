@@ -1,24 +1,14 @@
-# README
+My CookBook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+My CookBook alows you to keep all your recipes in one place and access them anywhere in the world!
+My CookBook uses Ruby on Rails for backend and React for frontend.
 
-Things you may want to cover:
+Installation
+To set up the app on your server download the repository and run bundle install on the main branch. After running bundle install, run rake db:migrate to set up the database. My CookBook uses Sqlite3 as data base by default but you can chooese any database you prefer. After the database and rails are set up, go into the client folder and run npm install to install all dependencies for the react front end.  
 
-* Ruby version
+Contribution Guide
+To install this gem onto your local machine, run bundle exec rake install. To release a new version, update the version number in version.rb, and then run bundle exec rake release, which will create a git tag for the version, push git commits and tags, and push the .gem file to rubygems.org.
 
-* System dependencies
+Contributing Bug reports and pull requests are welcome on GitHub at https://github.com/ArielFeingold/my-cook-book. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+License The gem is available as open source under the terms of the MIT License: https://opensource.org/licenses/MIT .
