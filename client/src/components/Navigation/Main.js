@@ -13,13 +13,13 @@ import PageNotFound from '../../components/UI/PageNotFound'
 const Main = () => (
   <main>
     <Switch>
-      <Route path='/login' exact component={Login}/>
-      <Route path='/signup' exact component={Signup}/>
-      <Route path="/logout" exact component={Logout} />
-      <Route path="/new-recipe" exact component={CreateRecipeContainer} />
-      <Route path="/recipes" exact component={RecipesIndexContainer} />
+      <Route path='/users/login' exact component={Login}/>
+      <Route path='/users/signup' exact component={Signup}/>
+      <Route path="/users/logout" exact component={Logout} />
+      <Route path="/recipes/new" exact component={CreateRecipeContainer} />
+      <Route path="/recipes/index" exact component={RecipesIndexContainer} />
       <Route path='/' exact component={Login}/>
-      <Route path='/update' exact component={UpdateRecipeContainer}/>
+      <Route path='/recipes/update' component={UpdateRecipeContainer}/>
       <Route path='/page-not-found' exact component={PageNotFound}/>
       <Redirect to="/" />
     </Switch>

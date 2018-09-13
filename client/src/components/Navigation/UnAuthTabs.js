@@ -6,10 +6,10 @@ const UnAuthTabs = () => (
   <React.Fragment>
     <NavbarNav right>
       <NavItem >
-          <Link className="nav-link" to="/login">Login</Link>
+          <Link className="nav-link" to="/users/login">Login</Link>
       </NavItem>
       <NavItem>
-          <Link className="nav-link" to="/signup">Signup</Link>
+          <Link className="nav-link" to="/users/signup">Signup</Link>
       </NavItem>
     </NavbarNav>
   </React.Fragment>

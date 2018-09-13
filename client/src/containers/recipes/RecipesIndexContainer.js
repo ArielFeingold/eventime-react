@@ -70,7 +70,7 @@ handleShowRecipe = (recipeId) => {
 
 handleUpdateRecipe = (recipeId) => {
   this.props.getRecipe(recipeId)
-  history.push('./update')
+  history.push(`/recipes/update/${recipeId}`)
 
 }
 

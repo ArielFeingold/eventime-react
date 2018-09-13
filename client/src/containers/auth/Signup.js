@@ -45,14 +45,14 @@ class Signup extends Component {
         if(this.props.errors.email){
           emailError = `Email ${this.props.errors.email[0]}`;
           if(this.props.errors.email[0] === "has already been taken" ){
-            takenWarning = <Alert color="danger">Email has already been taken</Alert>
+            takenWarning = <Alert color="danger">Email is already in use</Alert>
           }
         }
       }
 
       let authRedirect = null;
       if ( this.props.isNewSignup ) {
-          authRedirect = <Redirect to="/login" />
+          authRedirect = <Redirect to="/users/login" />
       }
 
 

@@ -9,7 +9,7 @@ export const addRecipeStart = () => {
 };
 
 export const addRecipeSuccess = ( recipe ) => {
-  history.push('/recipes')
+  history.push('/recipes/index')
     return {
         type: actionTypes.ADD_RECIPE_SUCCESS
     };
@@ -72,7 +72,7 @@ export const deleteRecipeStart = () => {
 };
 
 export const deleteRecipeSuccess = (id) => {
-  history.push('/')
+  history.push('/recipes/index')
     return {
         type: actionTypes.DELETE_RECIPE_SUCCESS,
         id: id
@@ -110,7 +110,7 @@ export const updateRecipeStart = () => {
 };
 
 export const updateRecipeSuccess = ( recipe ) => {
-  history.push('/recipes')
+  history.push('/recipes/index')
     return {
         type: actionTypes.UPDATE_RECIPE_SUCCESS,
         recipeId: recipe.id,
