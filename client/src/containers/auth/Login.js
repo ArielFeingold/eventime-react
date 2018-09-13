@@ -34,7 +34,7 @@ class Login extends Component {
       if ( this.props.loading ) {spinner = <Spinner />}
 
       let errorMessage = null;
-      if ( this.props.errors ) {
+      if ( this.props.errors === "Not Found") {
           errorMessage = (
             <div>
               <Alert color="danger">User not found, please enter a valid password-email combination</Alert>

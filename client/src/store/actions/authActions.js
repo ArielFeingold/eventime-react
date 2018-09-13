@@ -61,10 +61,10 @@ export const signup = (email, password, username) => {
       };
   }
 
-  export const loginStart = () => {
-    return {
-        type: actionTypes.LOGIN_START
-    };
+export const loginStart = () => {
+  return {
+      type: actionTypes.LOGIN_START
+  };
 };
 
 export const loginSuccess = (token, id) => {
@@ -79,23 +79,6 @@ export const loginFail = (error) => {
     return {
         type: actionTypes.LOGIN_FAIL,
         error: error
-    };
-};
-
-export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
-    return {
-        type: actionTypes.LOGOUT
-    };
-};
-
-export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, 1000 * 60 * 60 * 25);
     };
 };
 
@@ -119,24 +102,51 @@ export const login = (email, password) => {
               },
               body: JSON.stringify(authData),
           })
+          .then(response => {if(!response.ok) {throw Error(response.status)}
+              return response
+            })
           .then( response => {
-            if (!response.ok) { throw response }
             return response.json()
           })
-          .then(response => {
-            var decodedJWT = jwt_decode(response.jwt);
-            const expirationDate = new Date(decodedJWT.exp * 1000);
-            localStorage.setItem('token', response.jwt);
-            localStorage.setItem('expirationDate', expirationDate);
-            localStorage.setItem('userId', decodedJWT.sub)
-            dispatch(loginSuccess(response.jwt, decodedJWT.sub));
-            dispatch(checkAuthTimeout(decodedJWT.exp))
+          .then(json =>
+            {
+              const decodedJWT = jwt_decode(json.jwt);
+              const expirationDate = new Date(decodedJWT.exp * 1000);
+              localStorage.setItem('token', json.jwt);
+              localStorage.setItem('expirationDate', expirationDate);
+              localStorage.setItem('userId', decodedJWT.sub)
+              dispatch(loginSuccess(json.jwt, decodedJWT.sub));
+              dispatch(checkAuthTimeout(decodedJWT.exp))
           })
             .catch(err => {
-                dispatch(loginFail("Not Found"));
+              if(err.message === "404"){
+                dispatch(loginFail("Not Found"))
+              }
+              if(err.message === "Failed to fetch"){
+                dispatch(loginFail("No Connection"))
+                history.push('/page-not-found');
+              }
+
             });
-      };
-  }
+          };
+}
+
+export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('userId');
+    return {
+        type: actionTypes.LOGOUT
+    };
+};
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, 1000 * 60 * 60 * 25);
+    };
+};
 
 export const authCheckState = () => {
   return dispatch => {
