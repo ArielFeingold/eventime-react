@@ -72,7 +72,7 @@ export const deleteRecipeStart = () => {
 };
 
 export const deleteRecipeSuccess = (id) => {
-  history.push('/recipes/index')
+  history.push('/recipes')
     return {
         type: actionTypes.DELETE_RECIPE_SUCCESS,
         id: id
